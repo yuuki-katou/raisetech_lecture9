@@ -9,7 +9,7 @@
 - **EmployeeServiceインターフェースとその実装EmployeeServiceImpl**: 従業員の情報を取得するためのメソッドを定義したインターフェースとその実装.
 - **EmployControllerクラス**: REST APIのエンドポイントを提供するコントローラクラス.
 - **ResourceNotFoundException**: リソースが見つからなかった場合にスローされるカスタム例外.
-- **SQLデータベース**:emloyeesテーブルを用意　
+- **SQLデータベース**:emloyeesテーブル.サンプルで20人分用意
 
 #### SQL記述例
 ```sql
