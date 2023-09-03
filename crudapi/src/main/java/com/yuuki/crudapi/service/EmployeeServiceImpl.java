@@ -27,12 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     // 特定のIDの従業員を取得するメソッド
     @Override
     public Employee findById(int id) {
-        Optional<Employee> employee = this.employeeMapper.findById(id);
-        if (employee.isPresent()) {
-            return employee.get();
-        } else {
-            throw new ResourceNotFoundException("resource not found");
-        }
+        return this.employeeMapper.findById(id).orElseThrow(()->new ResourceNotFoundException("resource not found"));
     }
 
     // 特定の部署の従業員を取得するメソッド

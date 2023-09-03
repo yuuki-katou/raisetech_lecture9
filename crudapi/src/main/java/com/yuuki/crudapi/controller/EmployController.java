@@ -26,12 +26,16 @@ public class EmployController {
         this.employeeService = employeeService;
     }
 
-    // 全ての従業員を取得するメソッド
+    // 全ての従業員を取得，または特定の部署に所属する従業員を取得するメソッド
     @GetMapping("/employees")
-    public List<EmployeeResponse> employees() {
-        List<Employee> employees = employeeService.findAll();
-        List<EmployeeResponse> employeeResponses = employees.stream().map(EmployeeResponse::new).toList();
-        return employeeResponses;
+    public List<EmployeeResponse> getEmployees(@RequestParam(value = "department",required = false)String department) {
+        List<Employee> employees;
+        if(department ==null || department.isEmpty()){
+            employees =employeeService.findAll();
+        }else {
+            employees=employeeService.findByDepartment(department);
+        }
+        return employees.stream().map(EmployeeResponse::new).toList();
     }
 
     // 特定のIDの従業員を取得するメソッド
@@ -40,11 +44,6 @@ public class EmployController {
         return employeeService.findById(id);
     }
 
-    // 特定の部署の従業員を取得するメソッド
-    @GetMapping("/employees/department")
-    public List<Employee> getEmployeeByDepartment(@RequestParam(value = "name", required = false) String department) {
-        return employeeService.findByDepartment(department);
-    }
 
     // ResourceNotFoundException がスローされた場合のハンドラ
     @ExceptionHandler(value = ResourceNotFoundException.class)
